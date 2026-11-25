@@ -12,7 +12,7 @@ The Z joint endpoint requires survival to 25 s, a supported crossing of +45° an
 
 ## Reading the release
 
-- [Workshop abstract](paper/abstract.txt)
+- [Extended workshop abstract](paper/abstract.txt) · [中文对照](paper/abstract_zh.txt)
 - [English technical report (PDF)](paper/technical_report.pdf) and [editable Word version](paper/technical_report.docx)
 - [Detailed technical summary in Chinese](paper/technical_summary_zh.md)
 - [Reversal failure analysis](figures/reversal_failure.png) and [fresh Z evaluation](figures/z_outcomes.png)
