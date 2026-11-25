@@ -1,0 +1,8 @@
+{
+  "axes": ["Y","Z"], "modes": ["fixed","free"], "seeds": [976031,976043,976067],
+  "test_banks": [977011,977021,977039], "starts_per_bank":64,
+  "epochs":5000, "envs":512, "steps_per_env_per_epoch":8, "horizon":600,
+  "task": "World +45 degrees. Both arms use the augmented 18-action 191-observation native task, nominal training resets, proximity and sustained dwell reward. Fixed: same robot with forearm drive commanding zero and mechanical stops at zero. All original finger and wrist joints active. Free: existing +/-60 deg roll. Both train from scratch and use only the final checkpoint.",
+  "test": "Identical new perturbed cube quaternions across conditions and seeds, XYZ half-ranges 5/10/10 degrees. Drop absorbing. Primary ever completed 16 consecutive live samples below 0.1 rad. Secondary ever entered, final 16, drop. Report conditional conversion and per-seed paired gains/losses.",
+  "mechanism": "World cube and initial-palm relative net orientations at first completed hold. Split world-axis projected incremental rotation vectors into tower, palm minus tower, and cube minus palm; signed contributions telescope to projected cube rotation. Also compare paired cases at 1 s and compare free-only rescues at the free first-hold time while both are alive. Separately report rotated-with-palm and in-hand-only counterfactual target errors. The split is kinematic, not contact force attribution."
+}

@@ -1,0 +1,31 @@
+{
+  "seeds": [
+    615101,
+    615119,
+    615137
+  ],
+  "dev": [
+    901013,
+    901021
+  ],
+  "confirm": [
+    904003,
+    904019,
+    904027
+  ],
+  "source": [
+    902003,
+    902009,
+    902017,
+    902029
+  ],
+  "local": [
+    903001,
+    903017
+  ],
+  "Y": "Frozen development screen at +15,+30,+45 deg. Assess first entry excluding starts already inside. If smaller angles show an entry advantage for >=2 seeds, train 1000 epochs +15, 1000 +30, 3000 +45 and 512 +45 dwell. Otherwise test directly whether +15 is learnable in 1000 epochs with three new training runs before deciding. Direct controls use archived 5000+512 settings and seeds.",
+  "Z": "Per seed collect first legal entry (<0.1 rad) from four dedicated perturbed banks using frozen Z. Local probes come from two separate banks. Restore cube pose and twist, measured hand q and qdot, target history. Train matched 512 epochs from epoch 5512 with normal or 50% entry resets. No contact or goal edits.",
+  "evaluation": "Frozen deterministic actors, standard starts with Euler half-ranges (5,10,10) deg, 64 slots per bank, 600 sampled frames, drop absorbing. Report first entry, final 61 and final 301 consecutive in tolerance <0.1 rad, and drop. Held-out banks opened only after arm definitions frozen. Local probe uses equal same-seed states across arms, count last 301 and uninterrupted first 61. Three training seeds are the unit of replication.",
+  "steps_per_epoch": 4096,
+  "Z audit amendment": "Before viewing any confirmation outcome, the third seed failed cold-contact replay fidelity. For all three seeds, admit training states only when the absolute difference in next-sample orientation-error magnitude is <=0.05 rad under the originating action, without an immediate drop. Recheck the retained source states with a 17-slot reassignment. Keep all independent local probe states. No changes to the normal arm or final test."
+}

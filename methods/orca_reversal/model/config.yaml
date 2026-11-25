@@ -1,0 +1,329 @@
+task:
+  name: RobotHand
+  physics_engine: ${..physics_engine}
+  env:
+    numEnvs: ${resolve_default:4096,${...num_envs}}
+    numObservations: None
+    numStates: None
+    numActions: 17
+    env_spacing: 0.2
+    episode_length_s: 10
+    aggregate_mode: true
+    object_type:
+    - block
+    use_relative_control: false
+    relative_control_speed_scale: 5.0
+    enable_debug_viz: false
+    enable_contact_viz: false
+    controlFrequencyInv: 1
+    hand_friction: 1.0
+    object_start_offset:
+    - 0.06
+    - -0.17
+    - 0.07
+    actuated_dof_range_override: None
+    object_fix_base: false
+    hand_fix_base: true
+    hand_start_p:
+    - 0
+    - 0
+    - 0.5
+    hand_start_r:
+    - 0.44
+    - 0
+    - 0
+    - 0.5
+    object_start_quat:
+    - 0.0
+    - 0.0
+    - 0.0
+    - 1.0
+    goal_start_quat:
+    - 0.3826834
+    - 0.0
+    - 0.0
+    - 0.9238795
+    max_target_delta: 0.02
+  asset:
+    model_file: orcahand/orcahand.xml
+    force_sensor_names:
+    - right_index_ip
+    - right_middle_ip
+    - right_ring_ip
+    - right_pinky_ip
+    - right_thumb_dp
+    pose_sensor_names:
+    - right_index_ip
+    - right_middle_ip
+    - right_ring_ip
+    - right_pinky_ip
+    - right_thumb_dp
+  logging:
+    rt_plt: false
+    record_dofs: false
+    record_observations: false
+    record_length: 10
+    buf_len_s: 0.6
+    num_rows: 2
+    num_cols: 3
+    measurements:
+    - _observation_dof_position_stat_thumb_mcp
+    - _observation_dof_speed_middle_pip
+    - _observation_dof_force_pinky_mcp
+    - _reward_dist_stat
+    - _observation_fingertip_force_stat_thumb
+    - _observation_obj_angvel_stat
+    units:
+    - rad
+    - rad/s
+    - Nm
+    - '-'
+    - m
+    - m
+  rewards:
+    scales:
+      action_penalty: -2.0e-06
+      dof_acc_penalty: -1.5e-07
+      dof_vel_penalty: -3.0e-05
+      dof_trq_penalty: -1.0e-05
+      success: 3.0
+      drop_penalty: -3.0
+      simple_hand_flat: 0.0
+      reorienttask_obj_dist: 0.0
+      reorienttask_obj_rot: 0.01
+      hand_posture: -0.05
+    success_tolerance: 0.1
+    fall_dist_threshold: 0.2
+    position_success_tolerance: 0.05
+  actions:
+    clip: true
+    clip_value: 1
+  observations:
+    clip: true
+    clip_value: 5.0
+    obs_dims:
+      dof_position: 17
+      dof_pos_target: 17
+      dof_speed: 17
+      dof_speed_numerical: 17
+      dof_force: 17
+      obj_pos: 3
+      obj_quat: 4
+      obj_linvel: 3
+      obj_angvel: 3
+      obj_linvel_numerical: 3
+      obj_angvel_numerical: 3
+      goal_pos: 3
+      goal_quat: 4
+      goal_quat_diff: 4
+      pose_sensor_pos: 15
+      pose_sensor_quat: 20
+      pose_sensor_linvel: 15
+      pose_sensor_angvel: 15
+      force_sensor_force: 30
+      actions: 17
+      obj_pose_history: 35
+      dof_pos_history: 85
+    obs_scales:
+      dof_position: 2.0
+      dof_speed: 0.25
+      dof_force: 5.0
+      obj_pos: 4.0
+      obj_quat: 2.0
+      obj_linvel: 10.0
+      obj_angvel: 0.4
+      goal_pos: 4.0
+      goal_quat: 2.0
+      goal_quat_diff: 2.0
+      pose_sensor_pos: 5.0
+      pose_sensor_quat: 1.0
+      pose_sensor_linvel: 3.0
+      pose_sensor_angvel: 0.2
+      force_sensor_force: 4.0
+      actions: 1.3
+      obj_pose_history: 3.0
+      dof_pos_history: 2.0
+      obj_type: 1.0
+    asymmetric_observations: false
+    actor_observations:
+    - dof_position
+    - dof_speed
+    - dof_force
+    - obj_pos
+    - obj_quat
+    - obj_linvel
+    - obj_angvel
+    - goal_pos
+    - goal_quat
+    - goal_quat_diff
+    - pose_sensor_pos
+    - pose_sensor_quat
+    - pose_sensor_linvel
+    - pose_sensor_angvel
+    - force_sensor_force
+    - actions
+    student_observations:
+    - dof_position
+    - dof_speed
+    - dof_force
+    - obj_pos
+    - obj_quat
+    - obj_linvel
+    - obj_angvel
+    - goal_pos
+    - goal_quat
+    - goal_quat_diff
+    - actions
+  visualization:
+    camera_pos_start:
+    - -0.5
+    - -0.5
+    - 0.6
+    camera_target_start:
+    - 0
+    - 0
+    - 0.5
+    move_camera: false
+    camera_movement_vector:
+    - 0.005
+    - 0.005
+    - 0.0
+  reset_noise:
+    object_pos: 0.0
+    object_rot: 0.0
+    dof_pos: 0.0
+    dof_vel: 0.0
+    goal_rot: 0.0
+  task:
+    randomize: false
+  sim:
+    dt: 0.01667
+    substeps: 2
+    gravity:
+    - 0
+    - 0
+    - -9.81
+    up_axis: z
+    use_gpu_pipeline: ${eq:${...pipeline},"gpu"}
+    physx:
+      num_threads: 4
+      solver_type: 1
+      num_position_iterations: 8
+      num_velocity_iterations: 0
+      max_gpu_contact_pairs: 8388608
+      num_subscenes: 4
+      contact_offset: 0.002
+      rest_offset: 0.0
+      bounce_threshold_velocity: 0.2
+      max_depenetration_velocity: 1000.0
+      default_buffer_size_multiplier: 5.0
+      contact_collection: 0
+train:
+  params:
+    seed: ${...seed}
+    algo:
+      name: a2c_continuous
+    model:
+      name: continuous_a2c_logstd
+    network:
+      name: actor_critic
+      separate: false
+      space:
+        continuous:
+          mu_activation: None
+          sigma_activation: None
+          mu_init:
+            name: default
+          sigma_init:
+            name: const_initializer
+            val: 0
+          fixed_sigma: true
+      mlp:
+        units:
+        - 512
+        - 512
+        - 256
+        - 128
+        activation: elu
+        d2rl: false
+        initializer:
+          name: default
+        regularizer:
+          name: None
+    config:
+      name: ${resolve_default:FaiveHand,${....experiment}}
+      full_experiment_name: ${.name}
+      env_name: rlgpu
+      multi_gpu: ${....multi_gpu}
+      ppo: true
+      mixed_precision: false
+      normalize_input: true
+      normalize_value: true
+      value_bootstrap: true
+      num_actors: ${....task.env.numEnvs}
+      normalize_advantage: true
+      gamma: 0.99
+      tau: 0.95
+      learning_rate: 0.0005
+      lr_schedule: adaptive
+      schedule_type: standard
+      kl_threshold: 0.016
+      score_to_win: 100000
+      max_epochs: ${resolve_default:5000,${....max_iterations}}
+      save_best_after: 100
+      save_frequency: 200
+      print_stats: true
+      grad_norm: 1.0
+      entropy_coef: 0.0
+      truncate_grads: true
+      e_clip: 0.2
+      horizon_length: 8
+      minibatch_size: ${....task.env.numEnvs}
+      mini_epochs: 5
+      critic_coef: 4
+      clip_value: true
+      seq_len: 4
+      bounds_loss_coef: 0.0001
+      reward_shaper:
+        scale_value: 1
+      player:
+        deterministic: true
+        games_num: 100000
+        print_stats: true
+    load_checkpoint: ${if:${...checkpoint},True,False}
+    load_path: ${...checkpoint}
+  student:
+    learning_rate: 1.0e-05
+    custom_layers_units:
+    - 512
+    - 256
+    - 128
+    num_layers_to_copy_from_teacher: 2
+task_name: ${task.name}
+experiment: OrcaHandXPlus45Direct
+num_envs: 512
+seed: 42
+torch_deterministic: false
+max_iterations: 5000
+physics_engine: physx
+pipeline: gpu
+sim_device: cuda:0
+rl_device: cuda:0
+graphics_device_id: 0
+num_threads: 4
+solver_type: 1
+num_subscenes: 4
+test: false
+checkpoint: ''
+always_start_from_epoch0: false
+multi_gpu: false
+wandb_activate: false
+wandb_group: srl_ethz
+wandb_name: ${train.params.config.name}
+wandb_entity: ''
+wandb_project: ''
+capture_video: false
+capture_video_freq: 2000
+capture_video_len: 100
+force_render: false
+headless: true

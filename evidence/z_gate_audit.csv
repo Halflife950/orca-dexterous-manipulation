@@ -1,0 +1,13 @@
+cohort,seed,episodes,live_frames,triggered_live_frames,exchange_frames,triggered_exchange_frames,drops,warned_last_second,joint_success,successful_ever_triggered
+original_baseline,990011,192,59805,1523,2998,36,101,99,0,0
+original_slip,990011,192,82776,1668,1653,12,60,60,29,29
+fresh_baseline,990011,192,60804,1444,3865,55,98,97,3,3
+fresh_slip,990011,192,82578,1581,1788,17,57,57,38,38
+original_baseline,990023,192,54394,1291,3070,3,153,153,14,13
+original_slip,990023,192,81652,543,2366,0,62,62,37,12
+fresh_baseline,990023,192,52177,1419,3021,4,158,157,12,11
+fresh_slip,990023,192,81554,597,2717,0,62,62,37,12
+original_baseline,990037,192,63616,2631,3076,28,120,120,47,47
+original_slip,990037,192,91235,147,6303,0,18,17,124,22
+fresh_baseline,990037,192,65724,2667,3041,14,118,118,43,43
+fresh_slip,990037,192,90938,200,6908,0,26,26,133,34

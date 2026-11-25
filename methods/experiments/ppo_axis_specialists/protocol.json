@@ -1,0 +1,11 @@
+{
+  "axes": ["X","Y","Z"], "seeds": [615101,615119,615137],
+  "development_banks": [810017,810029,810041], "confirmation_banks": [831019,831031,831049],
+  "slots": 64, "init_half_ranges_xyz_deg": [5,10,10], "angle_deg": 45,
+  "base_epochs": 5000, "dwell_epochs": 512, "steps_per_epoch": 4096, "horizon": 600,
+  "endpoint": "Final 301 samples inside 0.1 rad, no drop. Also score ever entered before drop and drop.",
+  "design": "Use nominal training resets for direct comparison with the three existing matched X specialists. Compare on new paired perturbed starts. Only change the fixed goal quaternion for Y/Z. Reuse each X seed's archived epoch-5512 dwell checkpoint. Freeze the endpoint for every seed. Use the same new banks for a frozen X-on-each-axis transfer control. Never select on confirmation banks.",
+  "gate": "Train a unified policy if BOTH Y and Z have at least two of three independent seeds holding the final 5 seconds on at least 50% of development cases each. Freeze this rule before training. Report all seeds and confirm finalists on separate banks even if gate fails.",
+  "joint_if_eligible": "Uniform per-episode XYZ targets. Train three seeds. Compare after 5512 epochs (equal total budget) and at 16536 epochs (~matched per-axis exposure); report per-axis exposure, X retention and equal bank scores.",
+  "visual_sample": "For each specialist axis choose the median development-score seed. On first confirmation bank select first slot of each observed outcome: held, reached but failed, never reached. Review rigid-body motion for these cases."
+}

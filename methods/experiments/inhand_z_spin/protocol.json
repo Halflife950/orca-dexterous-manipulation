@@ -1,0 +1,11 @@
+{
+ "seeds":[990011,990023,990037], "test_banks":[991009,991027,991043],
+ "epochs":3072, "envs":512, "rollout_steps":8, "horizon":600,
+ "axis":"Positive world Z at reset, expressed in the initial palm frame; closest fixed-palm analogue to the historical task. Both wrist and axial forearm are braced at zero. No external support or torque interventions.",
+ "reward":"dt*(signed object minus palm angular speed about world Z - (7/16)*sum squared consecutive normalized finger-command changes - 100*drop). Skip first-step rotation and action difference at reset. No angle target, dwell or success bonus.",
+ "starts":"Uniform Euler perturbations X +/-5, Y/Z +/-10 deg. All weights trained from scratch. Only final checkpoints evaluated on the same three unused banks of 64 ordinary starting grasps; neutral-finger controller included.",
+ "rotation":"Unwrapped signed twist of cube relative to palm since reset. Also save integrated axial rotation, off-axis swing, world rotation and palm excursion. Mark twist singularities (swing >=170 degrees); disallow qualifying that episode after first singularity.",
+ "stable":"Count angle-only 45; separate supported 45 and 90. For supported crossing: 16 consecutive live frames above threshold and swing <=20 deg, all with hand support and no detected casing at any time up to confirmation. Six cm cube, existing 4 mm/0.10 N mesh/force audit. Report cases surviving the full 600 samples. Ten-second native drop: displacement >0.20 m, absorbing.",
+ "coordination":"Before supported 45 confirmation, test 4-interval windows of positive palm-relative axial motion >=1 degree without casing. For each finger, nearest segment with contact evidence at both ends, tangential travel around cube >0.3 mm in palm frame. Require >=3 fingers in one window. Kinematic proxy, not digit torque.",
+ "decision":"Advance to brake/hold if at least two seeds each obtain supported 45 plus full-episode survival and measured three-finger co-motion in >=50% of held-out starts, with total drop rate <=25% for those seeds. Report 90 and full angle traces to distinguish one-off motion from sustained rotation. This run decides readiness only."
+}

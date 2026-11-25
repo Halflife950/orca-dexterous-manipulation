@@ -1,0 +1,47 @@
+{
+  "goal_x_deg": 45,
+  "threshold_rad": 0.1,
+  "hold_samples": 16,
+  "training_seeds": [
+    615101,
+    615119,
+    615137
+  ],
+  "reward_modes": [
+    "proximity",
+    "improvement"
+  ],
+  "termination_samples": [
+    1,
+    16
+  ],
+  "potential": "1 / (geodesic_error_rad + 0.1)",
+  "proximity": "0.01 * potential(now)",
+  "improvement": "0.01 * (potential(now) - potential(previous))",
+  "terminal_bonus": "3 once when the assigned success criterion is reached",
+  "epochs": 5000,
+  "num_envs": 512,
+  "horizon_length": 8,
+  "selection": "final epoch only, from scratch, original archived PPO config",
+  "evaluation": "CPU PhysX, deterministic policy means, independent of training, common 600-frame first episodes, no success reset, drops absorbing",
+  "holdout_seeds": [
+    716041,
+    716059,
+    716071
+  ],
+  "cases_per_bank": 64,
+  "holdout": "X tilt stratified uniformly over [-5,+5] degrees per bank; fixed identity reference additionally scored separately",
+  "primary_outcomes": [
+    "entered before drop",
+    "16 consecutive valid samples starting at first entry, conditional on any entry"
+  ],
+  "secondary_outcomes": [
+    "16 samples from first entry, all starts",
+    "any 16-sample run",
+    "drop by horizon",
+    "inside for final 16 samples"
+  ],
+  "censoring": "first entry after step 585 counts as an observed entry but cannot demonstrate the first hold by horizon; report number of such entries",
+  "effects": "equal training-seed weights; marginal differences average the two levels of the other factor; interaction is difference of termination effects (improvement minus proximity); undefined conditional rates reported separately",
+  "secondary_backend": "Repeat the identical four held-out/reference banks using GPU PhysX as in training. Compare algorithms within each backend; never pool CPU/GPU outcomes."
+}

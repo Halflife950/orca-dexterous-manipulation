@@ -1,0 +1,12 @@
+{
+  "training_seeds": [615101,615119,615137],
+  "bank_seeds": [722347,722359,722389],
+  "cases_per_bank": 64, "tilt_x_deg": 5, "goal_x_deg": 45,
+  "arms": ["reset","continue","dwell"], "baseline": "parent",
+  "parent_epoch": 5000, "extra_epochs": 512, "steps_per_epoch": 4096,
+  "threshold_rad": 0.1, "horizon": 600, "dwell_samples": 61, "dwell_scale": 0.05,
+  "design": "Reset after 16 samples vs keep same target and continue to drop or timeout. Continue and dwell have the same one-off +3 at the first 16-sample run; dwell additionally pays 0.05*min(streak/61,1) per valid in-band sample. All start from matched parent actor, critic, normalization, optimizer and epoch. Compare final checkpoint only.",
+  "primary": "entire final 61 samples in tolerance with no drop",
+  "secondary": ["ever entered","ever held 61","ever held 16","dropped","fraction of all 600 samples alive and inside"],
+  "promotion": "Compared with BOTH reset control and frozen parent: higher final-61 rate on both engines, positive paired final-61 difference for at least two of three training seeds on each, aggregate entry no more than 5 pp lower and drop no more than 5 pp higher on each. Rank eligible configurations by worse-backend final-61 rate. This is an exploratory stage, not a hardware release."
+}
